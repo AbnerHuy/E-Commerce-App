@@ -16,9 +16,11 @@ router.post("/register", async (req, res) => {
 
   try {
     const savedUser = await newUser.save();
+    console.log("ok here", savedUser);
     res.status(201).json(savedUser);
   } catch (err) {
     res.status(500).json(err);
+    console.log("bạn tạo tài khoản fail rùi , tạo lại cái khác đi");
   }
 });
 
@@ -57,6 +59,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
     res.status(500).json(err);
+    console.log("sai rùi , thử lại đi ");
   }
 });
 
