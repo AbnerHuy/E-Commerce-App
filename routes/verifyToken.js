@@ -7,8 +7,8 @@ const verifyToken = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SEC, (err, user) => {
       if (err) res.status(403).json("Token is not valid!");
       req.user = user;
-      next();
       console.log("ok 01", user);
+      next();
     });
   } else {
     return res.status(401).json("You are not authenticated!");
@@ -16,11 +16,11 @@ const verifyToken = (req, res, next) => {
 };
 
 const verifyTokenAndAuthorization = (req, res, next) => {
-  console.log("ok 02", req.user);
-  console.log("ok 03", req.params.id);
-
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    console.log("ok 02", typeof req.user.id);
+    console.log("ok 03", typeof req.params.id);
+
+    if (req.user.id === req.params.id) {
       next();
     } else {
       res.status(403).json("You are not allowed to do that!");
